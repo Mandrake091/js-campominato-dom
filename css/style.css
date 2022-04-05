@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(0 21 51);
+    color: white;
+    width: 100vw;
+    height: 100vh;
+}
+
+div.box{
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    
+}
+#logo {
+    width: 50px;
+}
+span{
+    padding-left: 5px;
+}
+#header {
+    background-color: #ffffff;
+    color: rgb(44, 44, 44);
+}
+
+#rightCol {
+    column-gap: 10px;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    color: rgb(44, 44, 44);
+    background-color: #ffffff;
+    bottom: 0;
+}
+
+#main {
+    background-color: rgb(0 21 51);
+}
+
+.box {
+    border: 1px solid white;
+    background-color: rgb(44, 44, 44);
+}
+
+
+.pointer{
+    cursor: pointer;
+
+}
+.gridrow {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
+

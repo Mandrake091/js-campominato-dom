@@ -39,13 +39,12 @@ function setLevel(event) {
     generaGriglia(numSquare, cellPerSide);
 }
 
-function generateBomb(numSquare) {
-     MAX_ATTEMPT = numSquare - BOMB_NUMBER;
+function generateBomb(bombe) {
+     MAX_ATTEMPT = bombe - BOMB_NUMBER;
     while (bombs.length < BOMB_NUMBER) {
-        let bombNumber = getRandomInt(1, numSquare);
+        let bombNumber = getRandomInt(1, bombe);
         if (!bombs.includes(bombNumber)) {
             bombs.push(bombNumber);
-        }else{
         }
     }
     console.log(bombs)
@@ -56,6 +55,7 @@ function generaGriglia(numSquare, cellPerSide) {
     app.innerHTML = '';
     let row = document.createElement('div');
     row.setAttribute('class', 'gridrow');
+    row.setAttribute('id', 'row');
     for (let i = 1; i <= numSquare; i++) {
         const square = generaCella(i, cellPerSide);
         row.append(square)
@@ -64,7 +64,7 @@ function generaGriglia(numSquare, cellPerSide) {
 }
 
 function generaCella(numCell, cellPerSide) {
-    let square = document.createElement('div');
+    const square = document.createElement('div');
     square.setAttribute('class', 'box');
     square.style.width = `calc(100% / ${cellPerSide})`;
     square.style.height = `calc(100% / ${cellPerSide})`;
@@ -75,8 +75,15 @@ function generaCella(numCell, cellPerSide) {
 }
 
 function gameOver(){
-    score.innerHTML=`<h3 class='text-center'>Hai perso!</h3>`;
-    square.removeEventListener("click", gameOver);
+   let allCells = document.getElementsByClassName('box');
+   for(let i = 0; i < allCells.length; i++){
+    allCells[i].removeEventListener("click", coloraCella);
+    allCells[i].classList.remove("pointer");
+   }
+
+   row.classList.add('hasWon')
+
+    score.innerHTML=`<h1 class='text-center'>Hai perso!</h3>`;
 }
 
 
@@ -86,8 +93,7 @@ function coloraCella() {
     if (bombs.includes(num)) {
         this.style.backgroundColor = "red";
         this.style.backgroundImage = "url(./img/bomb.png)";
-        this.removeEventListener("click", coloraCella);
-    
+        gameOver();
     } else {
         console.log(ATTEMPTS)
         this.style.backgroundColor = "rgb(0 225 101)";

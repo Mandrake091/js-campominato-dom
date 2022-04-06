@@ -5,16 +5,13 @@ function getRandomInt(min, max) {
     max = Math.ceil(max);
     return Math.floor(Math.random() * (max - min) + 1);
 }
-const BOMB_NUMBER = 16;
+const BOMB_NUMBER = 1;
 let bombs = [];
-let MAX_ATTEMPT;
+let MAX_ATTEMPT = 0;
 let ATTEMPTS = 0;
 /////////////////
 document.getElementById('play').addEventListener('click', setLevel);
 document.getElementById('play').addEventListener('click', createScore);
-
-
-
 
 function setLevel(event) {
     const level = document.getElementById('difficulty').value;
@@ -31,8 +28,7 @@ function setLevel(event) {
             break;
     }
     ATTEMPTS = 0;
-    bombs=[];
-    score.innerText='';
+    score.innerText = '';
     let cellPerSide = Math.sqrt(numSquare);
     generateBomb(numSquare);
     console.log(numSquare);
@@ -40,7 +36,8 @@ function setLevel(event) {
 }
 
 function generateBomb(bombe) {
-     MAX_ATTEMPT = bombe - BOMB_NUMBER;
+    bombs.length = 0;
+    MAX_ATTEMPT = bombe - BOMB_NUMBER;
     while (bombs.length < BOMB_NUMBER) {
         let bombNumber = getRandomInt(1, bombe);
         if (!bombs.includes(bombNumber)) {
@@ -74,42 +71,55 @@ function generaCella(numCell, cellPerSide) {
     return square;
 }
 
-function gameOver(){
-   let allCells = document.getElementsByClassName('box');
-   for(let i = 0; i < allCells.length; i++){
-    allCells[i].removeEventListener("click", coloraCella);
-    allCells[i].classList.remove("pointer");
-   }
+function gameOver() {
+    let allCells = document.getElementsByClassName('box');
 
-   row.classList.add('hasWon')
+    for (let i = 0; i < allCells.length; i++) {
 
-    score.innerHTML=`<h1 class='text-center'>Hai perso!</h3>`;
+        if (bombs.includes(i + 1)) {
+            allCells[i].style.backgroundColor = "red";
+            allCells[i].style.backgroundImage = "url(./img/bomb.png)";
+
+        }
+
+        allCells[i].removeEventListener("click", coloraCella);
+        allCells[i].classList.remove("pointer");
+    }
+    row.classList.add('hasWon')
+    score.innerHTML = `<h1 class='text-center'>Hai perso!</h1>`;
 }
 
 
 function coloraCella() {
     let num = parseInt(this.innerText);
-    ATTEMPTS++;
+
     if (bombs.includes(num)) {
         this.style.backgroundColor = "red";
         this.style.backgroundImage = "url(./img/bomb.png)";
         gameOver();
     } else {
+        ATTEMPTS++;
         console.log(ATTEMPTS)
-        this.style.backgroundColor = "rgb(0 225 101)";
-        score.innerHTML=`<p class='text-center'>Tentativi: ${ATTEMPTS}</p>`;
+        if (ATTEMPTS  === MAX_ATTEMPT) {
+            console.log('hai vinto!')
+            score.innerHTML = `<h1 class='text-center'>Hai Vinto!!!</h1>`;
+        } else {
+            this.style.backgroundColor = "rgb(0 225 101)";
+            this.style.color = "rgb(0 0 0)";
+            score.innerHTML = `<p class='text-center'>Tentativi: ${ATTEMPTS}</p>`;
+        }
     }
     this.classList.remove('pointer');
     this.removeEventListener("click", coloraCella);
 }
 
-function createScore(){
-    let divScore= document.getElementById('score');
-        console.log(divScore)
-        let score = document.createElement('p');
-        score.setAttribute('class', 'text-center')
-        score.innerText='Tentativi:'
-        divScore.append(score)
+function createScore() {
+    let divScore = document.getElementById('score');
+
+    let score = document.createElement('p');
+    score.setAttribute('class', 'text-center')
+    score.innerText = 'Tentativi:'
+    divScore.append(score)
 }
 
 

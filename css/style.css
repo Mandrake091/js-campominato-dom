@@ -44,12 +44,13 @@ footer {
     background-color: rgb(0 21 51);
 }
 .hasWon{
-    filter: brightness(70%);
+    filter: brightness(90%);
 }
 
 .box {
+    box-shadow: inset 20px 20px 20px rgba(0, 0, 0, 0.368);
     border: 1px solid white;
-    background-color: rgb(44, 44, 44);
+    background-color: rgb(67, 67, 67);
 }
 
 
@@ -58,6 +59,7 @@ footer {
 
 }
 .gridrow {
+    box-shadow: 0px 0px 20px 5px rgba(144, 144, 144, 0.149);
     width: 600px;
     height: 600px;
     display: flex;

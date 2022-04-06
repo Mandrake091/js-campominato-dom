@@ -5,7 +5,7 @@ function getRandomInt(min, max) {
     max = Math.ceil(max);
     return Math.floor(Math.random() * (max - min) + 1);
 }
-const BOMB_NUMBER = 1;
+const BOMB_NUMBER = 10;
 let bombs = [];
 let MAX_ATTEMPT = 0;
 let ATTEMPTS = 0;

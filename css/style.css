@@ -53,15 +53,14 @@ footer {
     background-color: rgb(67, 67, 67);
 }
 
-
 .pointer{
     cursor: pointer;
 
 }
 .gridrow {
     box-shadow: 0px 0px 20px 5px rgba(144, 144, 144, 0.149);
-    width: 600px;
-    height: 600px;
+    width: 400px;
+    height: 400px;
     display: flex;
     flex-wrap: wrap;
 }
